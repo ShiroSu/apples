@@ -97,7 +97,7 @@ namespace ApplesGame
 				player.sprite.setRotation(0.f);
 				break;
 			}
-		}
+		}  
 
 		window.draw(player.sprite);
 	}

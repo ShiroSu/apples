@@ -14,4 +14,7 @@ namespace ApplesGame
 	const int NUM_APPLES = 5;
 	const unsigned int SCREEN_WIDTH = 800;
 	const unsigned int SCREEN_HEGHT = 600;
+	const int redAppleType = 0;
+	const int greenAppleType = 1;
+	const int yellowAppleType = 2;
 }

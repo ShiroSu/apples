@@ -26,13 +26,13 @@ namespace ApplesGame
 		{
 			int randNum = rand();
 			if (randNum % 3 == 0) {
-				InitApple(gameState.apples[i], gameState.redAppleTexture);
+				InitApple(gameState.apples[i], gameState.redAppleTexture, randNum);
 			}
 			else if (randNum % 3 == 1) {
-				InitApple(gameState.apples[i], gameState.greenAppleTexture);
+				InitApple(gameState.apples[i], gameState.greenAppleTexture, randNum);
 			}
 			else if (randNum % 3 == 2) {
-				InitApple(gameState.apples[i], gameState.yellowAppleTexture);
+				InitApple(gameState.apples[i], gameState.yellowAppleTexture, randNum);
 			}
 		}
 
@@ -88,18 +88,23 @@ namespace ApplesGame
 					// Move apple to a new random position
 					int randNum = rand();
 					if (randNum % 3 == 0) {
-						InitApple(gameState.apples[i], gameState.redAppleTexture);
+						InitApple(gameState.apples[i], gameState.redAppleTexture, randNum);
 					}
 					else if (randNum % 3 == 1) {
-						InitApple(gameState.apples[i], gameState.greenAppleTexture);
+						InitApple(gameState.apples[i], gameState.greenAppleTexture, randNum);
 					}
 					else if (randNum % 3 == 2) {
-						InitApple(gameState.apples[i], gameState.yellowAppleTexture);
+						InitApple(gameState.apples[i], gameState.yellowAppleTexture, randNum);
 					}
 					// Increase eaten apples counter
 					gameState.numEatenApples++;
 					// Increase player speed
+					if (gameState.apples[i].type == 0) {
 					gameState.player.speed += ACCELERATION;
+					}
+					else if (gameState.apples[i].type == 1) {
+						gameState.
+					}
 				}
 			}
 

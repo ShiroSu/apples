@@ -5,7 +5,7 @@
 
 namespace ApplesGame
 {
-	void InitApple(Apple& apple, const sf::Texture& texture, int type)
+	void InitApple(Apple& apple, AppleType type, const sf::Texture& texture)
 	{
 		// init apple state
 		apple.position.x = (float)(rand() % (SCREEN_WIDTH + 1));

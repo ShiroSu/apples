@@ -11,7 +11,8 @@ namespace ApplesGame
 	struct GameState
 	{
 		Player player;
-		Apple apples[NUM_APPLES];
+		int totalApplesCount = NUM_APPLES;
+		Apple * apples = new Apple[NUM_APPLES];
 		int numEatenApples = 0;
 		UIState uiState;
 		bool isGameOver = false;

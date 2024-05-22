@@ -24,16 +24,10 @@ namespace ApplesGame
 		// Init apples
 		for (int i = 0; i < NUM_APPLES; i++)
 		{
-			int randNum = rand();
-			if (randNum % 3 == 0) {
-				InitApple(gameState.apples[i], gameState.redAppleTexture, randNum);
-			}
-			else if (randNum % 3 == 1) {
-				InitApple(gameState.apples[i], gameState.greenAppleTexture, randNum);
-			}
-			else if (randNum % 3 == 2) {
-				InitApple(gameState.apples[i], gameState.yellowAppleTexture, randNum);
-			}
+			enum AppleType appleType = AppleType(rand() % 3);
+			if (appleType == redApple) InitApple(gameState.apples[i], appleType, gameState.redAppleTexture);
+			else if (appleType == greenApple) InitApple(gameState.apples[i], appleType, gameState.greenAppleTexture);
+			else InitApple(gameState.apples[i], appleType, gameState.yellowAppleTexture);
 		}
 
 		// Init game state
@@ -80,31 +74,37 @@ namespace ApplesGame
 			// Update player
 			UpdatePlayer(gameState.player, timeDelta);
 
-			for (int i = 0; i < NUM_APPLES; i++)
+			for (int i = 0; i < gameState.totalApplesCount; i++)
 			{
 				// Check collision with apple
 				if (HasPlayerCollisionWithApple(gameState.player, gameState.apples[i]))
 				{
 					// Move apple to a new random position
-					int randNum = rand();
-					if (randNum % 3 == 0) {
-						InitApple(gameState.apples[i], gameState.redAppleTexture, randNum);
+					//int randNumber = rand() % 3;
+					enum AppleType appleType = AppleType(rand() % 3);
+					//sf::Texture texture;
+					if (appleType == redApple) 
+					{
+						gameState.player.speed += ACCELERATION;
+						InitApple(gameState.apples[i], appleType, gameState.redAppleTexture);
 					}
-					else if (randNum % 3 == 1) {
-						InitApple(gameState.apples[i], gameState.greenAppleTexture, randNum);
+					else if (appleType == greenApple) 
+					{
+						//gameState.totalApplesCount++;
+						InitApple(gameState.apples[i], appleType, gameState.greenAppleTexture);
+
+						//enum AppleType appleType = AppleType(rand() % 3);
+						//InitApple(gameState.apples[gameState.totalApplesCount - 1], appleType, gameState.greenAppleTexture);
 					}
-					else if (randNum % 3 == 2) {
-						InitApple(gameState.apples[i], gameState.yellowAppleTexture, randNum);
-					}
+					else InitApple(gameState.apples[i], appleType, gameState.yellowAppleTexture);
 					// Increase eaten apples counter
 					gameState.numEatenApples++;
 					// Increase player speed
-					if (gameState.apples[i].type == 0) {
-					gameState.player.speed += ACCELERATION;
+					/*if (gameState.apples[i].type == 0) {
 					}
 					else if (gameState.apples[i].type == 1) {
-						gameState.
-					}
+						
+					}*/
 				}
 			}
 
@@ -128,7 +128,7 @@ namespace ApplesGame
 		// Draw player
 		DrawPlayer(gameState.player, window);
 		// Draw apples
-		for (int i = 0; i < NUM_APPLES; i++)
+		for (int i = 0; i < gameState.totalApplesCount; i++)
 		{
 			DrawApple(gameState.apples[i], window);
 		}

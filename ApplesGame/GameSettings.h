@@ -3,6 +3,13 @@
 
 namespace ApplesGame
 {
+	// Apple textures
+	enum AppleType {
+		redApple = 0,
+		greenApple,
+		yellowApple,
+	};
+
 	// Resources path
 	const std::string RESOURCES_PATH = "Resources/";
 

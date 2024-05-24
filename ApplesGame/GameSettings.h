@@ -6,8 +6,9 @@ namespace ApplesGame
 	// Apple textures
 	enum AppleType {
 		redApple = 0,
-		greenApple,
-		yellowApple,
+		goldApple,
+		//greenApple,
+		//yellowApple,
 	};
 
 	// Resources path
@@ -18,7 +19,8 @@ namespace ApplesGame
 	const float APPLE_SIZE = 20.f;
 	const float INITIAL_SPEED = 100.f;
 	const float ACCELERATION = 10.f; // For each eaten apple player speed will be increased by this value
-	const int NUM_APPLES = 5;
+	const int NUM_APPLES = 50;
+	const int NUM_APPLES_FOR_WIN = 100;
 	const unsigned int SCREEN_WIDTH = 800;
 	const unsigned int SCREEN_HEGHT = 600;
 	const int redAppleType = 0;

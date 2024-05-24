@@ -12,16 +12,18 @@ namespace ApplesGame
 	{
 		Player player;
 		int totalApplesCount = NUM_APPLES;
-		Apple * apples = new Apple[NUM_APPLES];
+		Apple apples[NUM_APPLES];
 		int numEatenApples = 0;
 		UIState uiState;
 		bool isGameOver = false;
+		bool isGameWon = false;
 		float timeSinceGameOver = 0.f;
 
 		// Game resources
 		sf::Font font;
 		sf::Texture playerTexture;
 		sf::Texture redAppleTexture;
+		sf::Texture goldAppleTexture;
 		sf::Texture greenAppleTexture;
 		sf::Texture yellowAppleTexture;
 	};

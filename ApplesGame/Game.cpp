@@ -9,10 +9,12 @@ namespace ApplesGame
 		// Init game resources (terminate if error)
 		assert(gameState.playerTexture.loadFromFile(RESOURCES_PATH + "Pacman.png"));
 		assert(gameState.redAppleTexture.loadFromFile(RESOURCES_PATH + "Red-apple.png"));
+		assert(gameState.goldAppleTexture.loadFromFile(RESOURCES_PATH + "Gold-apple.png"));
 		assert(gameState.greenAppleTexture.loadFromFile(RESOURCES_PATH + "Green-apple.png"));
 		assert(gameState.yellowAppleTexture.loadFromFile(RESOURCES_PATH + "Yellow-apple.png"));
 		assert(gameState.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
 
+		//gameState.apples = new Apple[gameState.totalApplesCount];
 		InitUI(gameState.uiState, gameState.font);
 		RestartGame(gameState);
 	}
@@ -24,10 +26,11 @@ namespace ApplesGame
 		// Init apples
 		for (int i = 0; i < NUM_APPLES; i++)
 		{
-			enum AppleType appleType = AppleType(rand() % 3);
-			if (appleType == redApple) InitApple(gameState.apples[i], appleType, gameState.redAppleTexture);
-			else if (appleType == greenApple) InitApple(gameState.apples[i], appleType, gameState.greenAppleTexture);
-			else InitApple(gameState.apples[i], appleType, gameState.yellowAppleTexture);
+			//enum AppleType appleType = AppleType(rand() % 3);
+				InitApple(gameState.apples[i], redApple, gameState.redAppleTexture);
+			//if (appleType == redApple) 
+			//else if (appleType == greenApple) InitApple(gameState.apples[i], appleType, gameState.greenAppleTexture);
+			//else InitApple(gameState.apples[i], appleType, gameState.goldAppleTexture);
 		}
 
 		// Init game state
@@ -69,7 +72,7 @@ namespace ApplesGame
 
 	void UpdateGame(GameState& gameState, float timeDelta)
 	{
-		if (!gameState.isGameOver)
+		if (!gameState.isGameOver && !gameState.isGameWon)
 		{
 			// Update player
 			UpdatePlayer(gameState.player, timeDelta);
@@ -79,32 +82,30 @@ namespace ApplesGame
 				// Check collision with apple
 				if (HasPlayerCollisionWithApple(gameState.player, gameState.apples[i]))
 				{
-					// Move apple to a new random position
-					//int randNumber = rand() % 3;
-					enum AppleType appleType = AppleType(rand() % 3);
-					//sf::Texture texture;
-					if (appleType == redApple) 
-					{
-						gameState.player.speed += ACCELERATION;
-						InitApple(gameState.apples[i], appleType, gameState.redAppleTexture);
-					}
-					else if (appleType == greenApple) 
-					{
-						//gameState.totalApplesCount++;
-						InitApple(gameState.apples[i], appleType, gameState.greenAppleTexture);
-
-						//enum AppleType appleType = AppleType(rand() % 3);
-						//InitApple(gameState.apples[gameState.totalApplesCount - 1], appleType, gameState.greenAppleTexture);
-					}
-					else InitApple(gameState.apples[i], appleType, gameState.yellowAppleTexture);
 					// Increase eaten apples counter
 					gameState.numEatenApples++;
 					// Increase player speed
-					/*if (gameState.apples[i].type == 0) {
+					if (gameState.apples[i].type == redApple) gameState.player.speed += ACCELERATION;
+					else {
+						gameState.isGameWon = true;
+						gameState.timeSinceGameOver = 0.f;
 					}
-					else if (gameState.apples[i].type == 1) {
-						
-					}*/
+
+					//if (gameState.numEatenApples <= NUM_APPLES_FOR_WIN - NUM_APPLES) {
+						// Move apple to a new random position
+						enum AppleType appleType = redApple;
+						if (gameState.numEatenApples == NUM_APPLES_FOR_WIN - 1) appleType = goldApple;
+
+						if (appleType == redApple) InitApple(gameState.apples[i], appleType, gameState.redAppleTexture);
+						/*else if (appleType == greenApple) InitApple(gameState.apples[i], appleType, gameState.greenAppleTexture);*/
+						else
+						{
+							for (int k = 0; k < gameState.totalApplesCount; k++) {
+								if (k != i) InitApple(gameState.apples[k], appleType, gameState.goldAppleTexture, true);
+								InitApple(gameState.apples[i], appleType, gameState.goldAppleTexture, false);
+							}
+						}
+					//}
 				}
 			}
 

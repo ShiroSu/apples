@@ -23,6 +23,8 @@ namespace ApplesGame
 		uiState.gameOverText.setFillColor(sf::Color::Red);
 		uiState.gameOverText.setString("GAME OVER");
 		uiState.gameOverText.setOrigin(GetTextOrigin(uiState.gameOverText, { 0.5f, 0.5f }));
+		uiState.gameWonText.setString("GAME WON!");
+		uiState.gameWonText.setOrigin(GetTextOrigin(uiState.gameWonText, { 0.5f, 0.5f }));
 	}
 
 	void UpdateUI(UIState& uiState, const struct GameState& gameState, float timeDelta)
@@ -32,6 +34,10 @@ namespace ApplesGame
 		uiState.isGameOverTextVisible = gameState.isGameOver;
 		sf::Color gameOverTextColor = (int)gameState.timeSinceGameOver % 2? sf::Color::Red : sf::Color::Yellow;
 		uiState.gameOverText.setFillColor(gameOverTextColor);
+
+		uiState.isGameWonTextVisible = gameState.isGameWon;
+		sf::Color gameWonTextColor = (int)gameState.timeSinceGameOver % 2? sf::Color::Red : sf::Color::Yellow;
+		uiState.gameWonText.setFillColor(gameWonTextColor);
 	}
 
 	void DrawUI(UIState& uiState, sf::RenderWindow& window)
@@ -44,6 +50,19 @@ namespace ApplesGame
 
 		if (uiState.isGameOverTextVisible)
 		{
+			uiState.scoreText.setFillColor(sf::Color::White);
+			uiState.scoreText.setOrigin(GetTextOrigin(uiState.scoreText, { 0.5f, 0.5f }));
+			uiState.scoreText.setPosition(window.getSize().x / 2.f, window.getSize().y / 1.7f);
+			window.draw(uiState.scoreText);
+			uiState.gameOverText.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
+			window.draw(uiState.gameOverText);
+		}
+		if (uiState.isGameWonTextVisible)
+		{
+			uiState.scoreText.setFillColor(sf::Color::White);
+			uiState.scoreText.setOrigin(GetTextOrigin(uiState.scoreText, { 0.5f, 0.5f }));
+			uiState.scoreText.setPosition(window.getSize().x / 2.f, window.getSize().y / 1.7f);
+			window.draw(uiState.scoreText);
 			uiState.gameOverText.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
 			window.draw(uiState.gameOverText);
 		}

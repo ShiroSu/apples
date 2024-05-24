@@ -13,5 +13,6 @@ namespace ApplesGame
 	};
 
 	void InitApple(Apple& apple, AppleType type, const sf::Texture& texture);
+	void InitApple(Apple& apple, AppleType type, const sf::Texture& texture, bool isHidden);
 	void DrawApple(Apple& apple, sf::RenderWindow& window);
 }
